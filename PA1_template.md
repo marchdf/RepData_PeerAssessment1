@@ -33,20 +33,23 @@ calculate the total number of steps taken per day
 
 ```r
 groups <- group_by(df,date)
-sumdf <- summarise(groups,sum(steps))
+sumdf <- summarise(groups,total=sum(steps,na.rm=TRUE))
 ```
 
-Make a histogram of the total number of steps taken each day
+Here is a histogram of the total number of steps taken each day
 
 ```r
-qplot(chol$AGE, geom="histogram") 
+ggplot(data=sumdf, aes(sumdf$total)) + geom_histogram()
 ```
 
 ```
-## Error in chol$AGE: object of type 'closure' is not subsettable
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
 ![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5-1.png) 
+
+The mean of the total number of steps taken per day is 9354.2295082.
+The median of the total number of steps taken per day is 10395.
 
 ## What is the average daily activity pattern?
 
