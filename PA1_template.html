@@ -205,7 +205,7 @@ hr {
 
 <pre><code class="r">library(dplyr)
 ##library(tidyr)
-##library(ggplot2)
+library(ggplot2)
 </code></pre>
 
 <h2>Loading and preprocessing the data</h2>
@@ -226,27 +226,18 @@ hr {
 calculate the total number of steps taken per day</p>
 
 <pre><code class="r">groups &lt;- group_by(df,date)
-summarise(groups,sum(steps))
-</code></pre>
-
-<pre><code>## Source: local data frame [61 x 2]
-## 
-##          date sum(steps)
-##        (date)      (int)
-## 1  2012-10-01         NA
-## 2  2012-10-02        126
-## 3  2012-10-03      11352
-## 4  2012-10-04      12116
-## 5  2012-10-05      13294
-## 6  2012-10-06      15420
-## 7  2012-10-07      11015
-## 8  2012-10-08         NA
-## 9  2012-10-09      12811
-## 10 2012-10-10       9900
-## ..        ...        ...
+sumdf &lt;- summarise(groups,sum(steps))
 </code></pre>
 
 <p>Make a histogram of the total number of steps taken each day</p>
+
+<pre><code class="r">qplot(chol$AGE, geom=&quot;histogram&quot;) 
+</code></pre>
+
+<pre><code>## Error in chol$AGE: object of type &#39;closure&#39; is not subsettable
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-5-1.png" alt="plot of chunk unnamed-chunk-5"/> </p>
 
 <h2>What is the average daily activity pattern?</h2>
 

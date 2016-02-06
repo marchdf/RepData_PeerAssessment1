@@ -9,7 +9,7 @@ output:
 ```{r}
 library(dplyr)
 ##library(tidyr)
-##library(ggplot2)
+library(ggplot2)
 ```
 
 ## Loading and preprocessing the data
@@ -29,11 +29,13 @@ Group the data by date and apply the dplyr summarize function to
 calculate the total number of steps taken per day
 ```{r}
 groups <- group_by(df,date)
-summarise(groups,sum(steps))
+sumdf <- summarise(groups,sum(steps))
 ```
 
 Make a histogram of the total number of steps taken each day
-
+```{r}
+qplot(chol$AGE, geom="histogram") 
+```
 
 ## What is the average daily activity pattern?
 
