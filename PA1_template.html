@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
-<title>Loading and preprocessing the data</title>
+<title>Load some libraries</title>
 
 <script type="text/javascript">
 window.onload = function() {
@@ -201,6 +201,13 @@ hr {
 </head>
 
 <body>
+<h2>Load some libraries</h2>
+
+<pre><code class="r">library(dplyr)
+##library(tidyr)
+##library(ggplot2)
+</code></pre>
+
 <h2>Loading and preprocessing the data</h2>
 
 <p>Load the data file</p>
@@ -214,6 +221,32 @@ hr {
 </code></pre>
 
 <h2>What is mean total number of steps taken per day?</h2>
+
+<p>Group the data by date and apply the dplyr summarize function to
+calculate the total number of steps taken per day</p>
+
+<pre><code class="r">groups &lt;- group_by(df,date)
+summarise(groups,sum(steps))
+</code></pre>
+
+<pre><code>## Source: local data frame [61 x 2]
+## 
+##          date sum(steps)
+##        (date)      (int)
+## 1  2012-10-01         NA
+## 2  2012-10-02        126
+## 3  2012-10-03      11352
+## 4  2012-10-04      12116
+## 5  2012-10-05      13294
+## 6  2012-10-06      15420
+## 7  2012-10-07      11015
+## 8  2012-10-08         NA
+## 9  2012-10-09      12811
+## 10 2012-10-10       9900
+## ..        ...        ...
+</code></pre>
+
+<p>Make a histogram of the total number of steps taken each day</p>
 
 <h2>What is the average daily activity pattern?</h2>
 

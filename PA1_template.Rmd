@@ -5,6 +5,12 @@ output:
     keep_md: true
 ---
 
+## Load some libraries
+```{r}
+library(dplyr)
+##library(tidyr)
+##library(ggplot2)
+```
 
 ## Loading and preprocessing the data
 Load the data file
@@ -19,6 +25,14 @@ df$date <- as.Date(df$date)
 
 ## What is mean total number of steps taken per day?
 
+Group the data by date and apply the dplyr summarize function to
+calculate the total number of steps taken per day
+```{r}
+groups <- group_by(df,date)
+summarise(groups,sum(steps))
+```
+
+Make a histogram of the total number of steps taken each day
 
 
 ## What is the average daily activity pattern?
