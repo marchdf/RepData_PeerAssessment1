@@ -29,13 +29,16 @@ Group the data by date and apply the dplyr summarize function to
 calculate the total number of steps taken per day
 ```{r}
 groups <- group_by(df,date)
-sumdf <- summarise(groups,sum(steps))
+sumdf <- summarise(groups,total=sum(steps,na.rm=TRUE))
 ```
 
-Make a histogram of the total number of steps taken each day
+Here is a histogram of the total number of steps taken each day
 ```{r}
-qplot(chol$AGE, geom="histogram") 
+ggplot(data=sumdf, aes(sumdf$total)) + geom_histogram()
 ```
+
+The mean of the total number of steps taken per day is `r mean(sumdf$total)`.
+The median of the total number of steps taken per day is `r median(sumdf$total)`.
 
 ## What is the average daily activity pattern?
 
