@@ -8,7 +8,9 @@ output:
 ## Load some libraries
 
 ```r
+library(stringr)
 library(dplyr)
+library(lubridate)
 ##library(tidyr)
 library(ggplot2)
 ```
@@ -20,11 +22,19 @@ Load the data file
 df <- read.csv("activity.csv")
 ```
 
-Convert the date column to the date class
+Manipulate the date frame to have:
+- a  date-time column,
+- a date column in the date class
+- a time column (decimal, from the interval column)
 
 ```r
-df$date <- as.Date(df$date)
+df <- df %>%
+   mutate(interval = str_pad(interval, 4, pad = "0")) %>%
+   mutate(date_time = ymd_hm(paste(date, interval))) %>%
+   mutate(date = ymd(date)) %>%
+   mutate(time = hour(date_time) + minute(date_time)/60)
 ```
+
 
 ## What is mean total number of steps taken per day?
 
@@ -39,11 +49,9 @@ sumdf <- summarise(groups,total=sum(steps,na.rm=TRUE))
 Here is a histogram of the total number of steps taken each day
 
 ```r
-ggplot(data=sumdf, aes(sumdf$total)) + geom_histogram()
-```
-
-```
-## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+ggplot(data=sumdf, aes(sumdf$total)) +
+geom_histogram(bins=25)+
+labs(x = "Steps", title = "Total steps per day")
 ```
 
 ![plot of chunk histogram](figure/histogram-1.png) 
@@ -54,9 +62,55 @@ The median of the total number of steps taken per day is 10395.
 
 ## What is the average daily activity pattern?
 
+Group the data by date and apply the dplyr summarize function to
+calculate in each time interval the average number of steps over all
+days.
+
+```r
+groups <- group_by(df,time,interval)
+avgdf <- summarise(groups,mean=mean(steps,na.rm=TRUE))
+```
+
+This is a time series plot of the 5-minute interval (x-axis) and the
+average number of steps taken, averaged across all days (y-axis).
+
+```r
+ggplot(data=avgdf, aes(x=avgdf$time,y=avgdf$mean)) +
+geom_line() +
+labs(x = "Time", y = "Average steps", title = "Average steps per time interval")
+```
+
+![plot of chunk time series plot](figure/time series plot-1.png) 
+
+The 5-minute interval, on average across all the days in the dataset,
+containing the maximum number of steps is from `r
+(avgdf$interval[which.max(avgdf$mean)])` to `r
+(avgdf$interval[which.max(avgdf$mean)+1])`.
 
 
 ## Imputing missing values
+
+The total number of missing values in the dataset is 2304.
+
+We are going to replace every missing piece of data with the mean for
+that interval.
+
+
+```r
+fdf <- df %>%  group_by(interval) %>%  mutate(filled.steps = ifelse(is.na(steps), mean(steps, na.rm=TRUE), steps))
+groups <- group_by(fdf,date)
+sumdf <- summarise(groups,total=sum(steps,na.rm=TRUE))
+```
+
+
+
+```r
+ggplot(data=sumdf, aes(sumdf$total)) +
+geom_histogram(bins=25)+
+labs(x = "Steps", title = "Total steps per day")
+```
+
+![plot of chunk histogram of imputed dataframe](figure/histogram of imputed dataframe-1.png) 
 
 
 
