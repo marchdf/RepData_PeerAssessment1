@@ -55,9 +55,9 @@ ggplot(data=sumdf, aes(total)) +
 
 ![plot of chunk histogram](figure/histogram-1.png) 
 
-The mean of the total number of steps taken per day is 9354.2295082.
+The mean of the total number of steps taken per day is 9354.23.
 
-The median of the total number of steps taken per day is 10395.
+The median of the total number of steps taken per day is 10395.00.
 
 ## What is the average daily activity pattern?
 
@@ -113,7 +113,7 @@ ggplot(data=sumfdf, aes(total)) +
 
 The mean of the total number of steps taken per day is 10766.19.
 
-The median of the total number of steps taken per day is 1.0766189 &times; 10<sup>4</sup>.
+The median of the total number of steps taken per day is 10766.19.
 
 
 ## Are there differences in activity patterns between weekdays and weekends?

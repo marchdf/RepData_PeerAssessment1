@@ -48,9 +48,9 @@ ggplot(data=sumdf, aes(total)) +
    labs(x = "Steps", title = "Total steps per day")
 ```
 
-The mean of the total number of steps taken per day is `r mean(sumdf$total)`.
+The mean of the total number of steps taken per day is `r sprintf("%.2f",mean(sumdf$total))`.
 
-The median of the total number of steps taken per day is `r median(sumdf$total)`.
+The median of the total number of steps taken per day is `r sprintf("%.2f",median(sumdf$total))`.
 
 ## What is the average daily activity pattern?
 
@@ -98,7 +98,7 @@ ggplot(data=sumfdf, aes(total)) +
 
 The mean of the total number of steps taken per day is `r sprintf("%.2f",mean(sumfdf$total))`.
 
-The median of the total number of steps taken per day is `r median(sumfdf$total)`.
+The median of the total number of steps taken per day is `r sprintf("%.2f",median(sumfdf$total))`.
 
 
 ## Are there differences in activity patterns between weekdays and weekends?
