@@ -11,7 +11,6 @@ output:
 library(stringr)
 library(dplyr)
 library(lubridate)
-##library(tidyr)
 library(ggplot2)
 ```
 
@@ -83,9 +82,8 @@ labs(x = "Time", y = "Average steps", title = "Average steps per time interval")
 ![plot of chunk time series plot](figure/time series plot-1.png) 
 
 The 5-minute interval, on average across all the days in the dataset,
-containing the maximum number of steps is from `r
-(avgdf$interval[which.max(avgdf$mean)])` to `r
-(avgdf$interval[which.max(avgdf$mean)+1])`.
+containing the maximum number of steps is from 0835
+to 0840.
 
 
 ## Imputing missing values
