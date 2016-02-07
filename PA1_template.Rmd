@@ -6,7 +6,7 @@ output:
 ---
 
 ## Load some libraries
-```{r, message=F, warning=F}
+```{r}
 library(stringr)
 library(dplyr)
 library(lubridate)
@@ -43,7 +43,7 @@ sumdf <- summarise(groups,total=sum(steps,na.rm=TRUE))
 
 Here is a histogram of the total number of steps taken each day
 ```{r histogram}
-ggplot(data=sumdf, aes(sumdf$total)) +
+ggplot(data=sumdf, aes(total)) +
    geom_histogram(bins=25)+
    labs(x = "Steps", title = "Total steps per day")
 ```
@@ -80,24 +80,25 @@ to `r avgdf$interval[which.max(avgdf$mean)+1]`.
 The total number of missing values in the dataset is `r sum(is.na(df$steps))`.
 
 We are going to replace every missing piece of data with the mean for
-that interval.
-
+that interval. Then we summarise the data by date
 ```{r}
-fdf <- df %>%  group_by(interval) %>%  mutate(filled.steps = ifelse(is.na(steps), mean(steps, na.rm=TRUE), steps))
+fdf <- df %>%
+   group_by(interval) %>%
+   mutate(filled.steps = ifelse(is.na(steps), mean(steps, na.rm=TRUE), steps))
 groups <- group_by(fdf,date)
-sumdf <- summarise(groups,total=sum(filled.steps,na.rm=TRUE))
+sumfdf <- summarise(groups,total=sum(filled.steps,na.rm=TRUE))
 ```
 
-
+Let's look at a histogram of this 
 ```{r histogram of imputed dataframe}
-ggplot(data=sumdf, aes(sumdf$total)) +
+ggplot(data=sumfdf, aes(total)) +
    geom_histogram(bins=25)+
    labs(x = "Steps", title = "Total steps per day")
 ```
 
-The mean of the total number of steps taken per day is `r mean(sumdf$total)`.
+The mean of the total number of steps taken per day is `r sprintf("%.2f",mean(sumfdf$total))`.
 
-The median of the total number of steps taken per day is `r median(sumdf$total)`.
+The median of the total number of steps taken per day is `r median(sumfdf$total)`.
 
 
 ## Are there differences in activity patterns between weekdays and weekends?

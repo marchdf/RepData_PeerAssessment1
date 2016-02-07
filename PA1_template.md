@@ -48,7 +48,7 @@ sumdf <- summarise(groups,total=sum(steps,na.rm=TRUE))
 Here is a histogram of the total number of steps taken each day
 
 ```r
-ggplot(data=sumdf, aes(sumdf$total)) +
+ggplot(data=sumdf, aes(total)) +
    geom_histogram(bins=25)+
    labs(x = "Steps", title = "Total steps per day")
 ```
@@ -91,26 +91,27 @@ to 0840.
 The total number of missing values in the dataset is 2304.
 
 We are going to replace every missing piece of data with the mean for
-that interval.
-
+that interval. Then we summarise the data by date
 
 ```r
-fdf <- df %>%  group_by(interval) %>%  mutate(filled.steps = ifelse(is.na(steps), mean(steps, na.rm=TRUE), steps))
+fdf <- df %>%
+   group_by(interval) %>%
+   mutate(filled.steps = ifelse(is.na(steps), mean(steps, na.rm=TRUE), steps))
 groups <- group_by(fdf,date)
-sumdf <- summarise(groups,total=sum(filled.steps,na.rm=TRUE))
+sumfdf <- summarise(groups,total=sum(filled.steps,na.rm=TRUE))
 ```
 
-
+Let's look at a histogram of this 
 
 ```r
-ggplot(data=sumdf, aes(sumdf$total)) +
+ggplot(data=sumfdf, aes(total)) +
    geom_histogram(bins=25)+
    labs(x = "Steps", title = "Total steps per day")
 ```
 
 ![plot of chunk histogram of imputed dataframe](figure/histogram of imputed dataframe-1.png) 
 
-The mean of the total number of steps taken per day is 1.0766189 &times; 10<sup>4</sup>.
+The mean of the total number of steps taken per day is 10766.19.
 
 The median of the total number of steps taken per day is 1.0766189 &times; 10<sup>4</sup>.
 
