@@ -54,6 +54,7 @@ ggplot(data=sumdf, aes(total)) +
 ```
 
 ![plot of chunk histogram](figure/histogram-1.png) 
+
 All those counts of zeros are due to the missing data (NA's) in the dataframe.
 
 The mean of the total number of steps taken per day is 9354.23.

@@ -47,6 +47,7 @@ ggplot(data=sumdf, aes(total)) +
    geom_histogram(bins=25)+
    labs(x = "Steps", title = "Total steps per day")
 ```
+
 All those counts of zeros are due to the missing data (NA's) in the dataframe.
 
 The mean of the total number of steps taken per day is `r sprintf("%.2f",mean(sumdf$total))`.
