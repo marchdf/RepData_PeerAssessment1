@@ -10,6 +10,26 @@ output:
 ```r
 library(stringr)
 library(dplyr)
+```
+
+```
+## 
+## Attaching package: 'dplyr'
+## 
+## The following objects are masked from 'package:stats':
+## 
+##     filter, lag
+## 
+## The following object is masked from '.startup':
+## 
+##     n
+## 
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
+```
+
+```r
 library(lubridate)
 library(ggplot2)
 ```
@@ -22,9 +42,9 @@ df <- read.csv("activity.csv")
 ```
 
 Manipulate the date frame to have:
-- a  date-time column,
-- a date column in the date class
-- a time column (decimal, from the interval column)
+- a  date-time column;
+- a date column in the date class;
+- a time column (decimal, from the interval column).
 
 ```r
 df <- df %>%
@@ -49,8 +69,8 @@ Here is a histogram of the total number of steps taken each day
 
 ```r
 ggplot(data=sumdf, aes(sumdf$total)) +
-geom_histogram(bins=25)+
-labs(x = "Steps", title = "Total steps per day")
+   geom_histogram(bins=25)+
+   labs(x = "Steps", title = "Total steps per day")
 ```
 
 ![plot of chunk histogram](figure/histogram-1.png) 
@@ -75,8 +95,8 @@ average number of steps taken, averaged across all days (y-axis).
 
 ```r
 ggplot(data=avgdf, aes(x=time,y=mean)) +
-geom_line() +
-labs(x = "Time of day", y = "Average steps", title = "Average steps per time interval")
+   geom_line() +
+   labs(x = "Time of day", y = "Average steps", title = "Average steps per time interval")
 ```
 
 ![plot of chunk time series plot](figure/time series plot-1.png) 
@@ -104,8 +124,8 @@ sumdf <- summarise(groups,total=sum(filled.steps,na.rm=TRUE))
 
 ```r
 ggplot(data=sumdf, aes(sumdf$total)) +
-geom_histogram(bins=25)+
-labs(x = "Steps", title = "Total steps per day")
+   geom_histogram(bins=25)+
+   labs(x = "Steps", title = "Total steps per day")
 ```
 
 ![plot of chunk histogram of imputed dataframe](figure/histogram of imputed dataframe-1.png) 
@@ -140,9 +160,9 @@ rest of the day.
 
 ```r
 ggplot(avgdf, aes(x=time, y=mean, group=day.type)) +
-geom_line() +
-facet_wrap(~ day.type , nrow=2) + 
-labs(x = "Time of day", y = "Average steps", title = "Average steps per time interval")
+   geom_line() +
+   facet_wrap(~ day.type , nrow=2) + 
+   labs(x = "Time of day", y = "Average steps", title = "Average steps per time interval")
 ```
 
 ![plot of chunk comparison of weekend and weekday](figure/comparison of weekend and weekday-1.png) 

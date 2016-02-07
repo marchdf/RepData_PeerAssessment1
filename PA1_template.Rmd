@@ -20,9 +20,9 @@ df <- read.csv("activity.csv")
 ```
 
 Manipulate the date frame to have:
-- a  date-time column,
-- a date column in the date class
-- a time column (decimal, from the interval column)
+- a  date-time column;
+- a date column in the date class;
+- a time column (decimal, from the interval column).
 ```{r}
 df <- df %>%
    mutate(interval = str_pad(interval, 4, pad = "0")) %>%
@@ -44,8 +44,8 @@ sumdf <- summarise(groups,total=sum(steps,na.rm=TRUE))
 Here is a histogram of the total number of steps taken each day
 ```{r histogram}
 ggplot(data=sumdf, aes(sumdf$total)) +
-geom_histogram(bins=25)+
-labs(x = "Steps", title = "Total steps per day")
+   geom_histogram(bins=25)+
+   labs(x = "Steps", title = "Total steps per day")
 ```
 
 The mean of the total number of steps taken per day is `r mean(sumdf$total)`.
@@ -66,8 +66,8 @@ This is a time series plot of the 5-minute interval (x-axis) and the
 average number of steps taken, averaged across all days (y-axis).
 ```{r time series plot}
 ggplot(data=avgdf, aes(x=time,y=mean)) +
-geom_line() +
-labs(x = "Time of day", y = "Average steps", title = "Average steps per time interval")
+   geom_line() +
+   labs(x = "Time of day", y = "Average steps", title = "Average steps per time interval")
 ```
 
 The 5-minute interval, on average across all the days in the dataset,
@@ -91,8 +91,8 @@ sumdf <- summarise(groups,total=sum(filled.steps,na.rm=TRUE))
 
 ```{r histogram of imputed dataframe}
 ggplot(data=sumdf, aes(sumdf$total)) +
-geom_histogram(bins=25)+
-labs(x = "Steps", title = "Total steps per day")
+   geom_histogram(bins=25)+
+   labs(x = "Steps", title = "Total steps per day")
 ```
 
 The mean of the total number of steps taken per day is `r mean(sumdf$total)`.
@@ -122,7 +122,7 @@ have a burst of activity in the morning and is less active during the
 rest of the day.
 ```{r comparison of weekend and weekday}
 ggplot(avgdf, aes(x=time, y=mean, group=day.type)) +
-geom_line() +
-facet_wrap(~ day.type , nrow=2) + 
-labs(x = "Time of day", y = "Average steps", title = "Average steps per time interval")
+   geom_line() +
+   facet_wrap(~ day.type , nrow=2) + 
+   labs(x = "Time of day", y = "Average steps", title = "Average steps per time interval")
 ```
