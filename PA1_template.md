@@ -37,8 +37,8 @@ df <- df %>%
 
 ## What is mean total number of steps taken per day?
 
-Group the data by date and apply the dplyr summarize function to
-calculate the total number of steps taken per day
+Group the data by time/interval and apply the dplyr summarize function
+to calculate the total number of steps taken per day.
 
 ```r
 groups <- group_by(df,date)
@@ -74,9 +74,9 @@ This is a time series plot of the 5-minute interval (x-axis) and the
 average number of steps taken, averaged across all days (y-axis).
 
 ```r
-ggplot(data=avgdf, aes(x=avgdf$time,y=avgdf$mean)) +
+ggplot(data=avgdf, aes(x=time,y=mean)) +
 geom_line() +
-labs(x = "Time", y = "Average steps", title = "Average steps per time interval")
+labs(x = "Time of day", y = "Average steps", title = "Average steps per time interval")
 ```
 
 ![plot of chunk time series plot](figure/time series plot-1.png) 
@@ -116,3 +116,33 @@ The median of the total number of steps taken per day is 1.0766189 &times; 10<su
 
 
 ## Are there differences in activity patterns between weekdays and weekends?
+
+Using the filled dataframe, create a new column with a new factor
+variable weekend/weekday depending on the day of the week.
+
+```r
+fdf <- fdf %>% mutate(day.type = ifelse(grepl("S(at|un)",weekdays(date)), "weekend","weekday"))
+```
+
+Group the data by the time/interval and apply the dplyr summarize
+function to calculate in each time interval the average number of
+steps over all days.
+
+```r
+groups <- group_by(fdf,day.type,time,interval)
+avgdf <- summarise(groups,mean=mean(steps,na.rm=TRUE))
+```
+
+Plot comparing weekend and weekday activity. The user is active
+throughout the day on weekends. During a week day, the user seems to
+have a burst of activity in the morning and is less active during the
+rest of the day.
+
+```r
+ggplot(avgdf, aes(x=time, y=mean, group=day.type)) +
+geom_line() +
+facet_wrap(~ day.type , nrow=2) + 
+labs(x = "Time of day", y = "Average steps", title = "Average steps per time interval")
+```
+
+![plot of chunk comparison of weekend and weekday](figure/comparison of weekend and weekday-1.png) 
