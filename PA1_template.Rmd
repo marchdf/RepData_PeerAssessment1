@@ -6,7 +6,7 @@ output:
 ---
 
 ## Load some libraries
-```{r}
+```{r, message=F, warning=F}
 library(stringr)
 library(dplyr)
 library(lubridate)
