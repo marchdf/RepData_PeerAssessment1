@@ -88,7 +88,7 @@ that interval.
 ```{r}
 fdf <- df %>%  group_by(interval) %>%  mutate(filled.steps = ifelse(is.na(steps), mean(steps, na.rm=TRUE), steps))
 groups <- group_by(fdf,date)
-sumdf <- summarise(groups,total=sum(steps,na.rm=TRUE))
+sumdf <- summarise(groups,total=sum(filled.steps,na.rm=TRUE))
 ```
 
 
@@ -97,10 +97,10 @@ ggplot(data=sumdf, aes(sumdf$total)) +
 geom_histogram(bins=25)+
 labs(x = "Steps", title = "Total steps per day")
 ```
+
 The mean of the total number of steps taken per day is `r mean(sumdf$total)`.
 
 The median of the total number of steps taken per day is `r median(sumdf$total)`.
-
 
 
 ## Are there differences in activity patterns between weekdays and weekends?
