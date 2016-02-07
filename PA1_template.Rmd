@@ -97,6 +97,9 @@ ggplot(data=sumdf, aes(sumdf$total)) +
 geom_histogram(bins=25)+
 labs(x = "Steps", title = "Total steps per day")
 ```
+The mean of the total number of steps taken per day is `r mean(sumdf$total)`.
+
+The median of the total number of steps taken per day is `r median(sumdf$total)`.
 
 
 

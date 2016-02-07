@@ -111,6 +111,9 @@ labs(x = "Steps", title = "Total steps per day")
 ```
 
 ![plot of chunk histogram of imputed dataframe](figure/histogram of imputed dataframe-1.png) 
+The mean of the total number of steps taken per day is 9354.2295082.
+
+The median of the total number of steps taken per day is 10395.
 
 
 
