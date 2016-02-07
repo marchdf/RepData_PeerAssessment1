@@ -54,6 +54,7 @@ ggplot(data=sumdf, aes(total)) +
 ```
 
 ![plot of chunk histogram](figure/histogram-1.png) 
+All those counts of zeros are due to the missing data (NA's) in the dataframe.
 
 The mean of the total number of steps taken per day is 9354.23.
 
@@ -101,7 +102,8 @@ groups <- group_by(fdf,date)
 sumfdf <- summarise(groups,total=sum(filled.steps,na.rm=TRUE))
 ```
 
-Let's look at a histogram of this 
+Let's look at a histogram of this dataframe where the missing values
+have been replaced.
 
 ```r
 ggplot(data=sumfdf, aes(total)) +
@@ -111,9 +113,15 @@ ggplot(data=sumfdf, aes(total)) +
 
 ![plot of chunk histogram of imputed dataframe](figure/histogram of imputed dataframe-1.png) 
 
+By replacing the missing data by the mean in the interval over the
+days, we basically increased the number of times we count the mean in
+this histogram. It also mean we increase the mean and median because
+we don't have the effect of all those zeros due to missing data.
+
 The mean of the total number of steps taken per day is 10766.19.
 
 The median of the total number of steps taken per day is 10766.19.
+
 
 
 ## Are there differences in activity patterns between weekdays and weekends?
